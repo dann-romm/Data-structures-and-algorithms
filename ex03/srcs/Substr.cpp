@@ -2,6 +2,7 @@
 
 Substr::Substr(std::string str)
 {
+	this->count = 0;
 	this->str = str;
 }
 

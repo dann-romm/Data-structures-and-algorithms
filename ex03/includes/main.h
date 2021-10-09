@@ -7,8 +7,6 @@
 #include <ctime>
 #include <vector>
 
-using namespace std;
-
 #include "../includes/Substr.h"
 #include "../includes/Hash_table.h"
 

@@ -1,13 +1,13 @@
-NAME = ex03
+NAME		= ex03
 
-CC = g++
-CFLAGS = 
-CFILES = main.cpp Hash_table.cpp Substr.cpp
-# CFILES = main.cpp
-SRC = $(addprefix $(SRC_DIR), $(CFILES))
-SRC_DIR = ./srcs/
-OBJ = $(SRC:.cpp=.o)
-HEADER = ./includes/
+CC			= g++
+CFLAGS		=
+CFILES		= main.cpp Hash_table.cpp Substr.cpp
+# CFILES	= main.cpp
+SRC			= $(addprefix $(SRC_DIR), $(CFILES))
+SRC_DIR		= ./srcs/
+OBJ			= $(SRC:.cpp=.o)
+HEADER		= ./includes/
 
 .PHONY: all clean fclean re
 

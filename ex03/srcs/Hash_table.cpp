@@ -64,6 +64,8 @@ Hash_table::Hash_table(unsigned int size)
 	this->load_ratio = 0.0;
 	this->size = size;
 	this->table = new List *[size];
+	for (int i = 0; i < size; i++)
+		this->table[i] = nullptr;
 }
 
 Hash_table::~Hash_table(void)
@@ -81,8 +83,32 @@ unsigned int Hash_table::hash(std::string key)
 	hash = 0;
 	len = key.length();
 	for (int i = 0; i < len; i++)
+	{
 		hash = (hash + key[i] * (unsigned int) std::pow(b, len - i - 1)) % this->size;
+	}
 	return (hash);
+}
+
+unsigned int Hash_table::str_hash(std::string key, unsigned int size)
+{
+	unsigned int	hash;
+	int				len;
+	int				b;
+
+	b = 2;
+	hash = 0;
+	len = key.length();
+	for (int i = 0; i < len; i++)
+		hash = (hash + key[i] * (unsigned int) std::pow(b, len - i - 1)) % size;
+	return (hash);
+}
+
+unsigned int Hash_table::str_hash(unsigned int old_hash, char old_c, char new_c, unsigned int size, int len)
+{
+	int	b;
+
+	b = 2;
+	return (((old_hash - old_c * (unsigned int) std::pow(b, len - 1)) * b + new_c) % size);
 }
 
 void Hash_table::insert(Substr *data)

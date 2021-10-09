@@ -6,9 +6,9 @@
 class Substr
 {
 private:
-	unsigned int count;
 	std::string str;
 public:
+	unsigned int count;
 	Substr(std::string str);
 	std::string get_key(void);
 	std::string to_print(void);

@@ -21,16 +21,16 @@ class Hash_table
 private:
 	static const double load_ratio_limit = 0.75;
 	double load_ratio;
-
-	List **table;
-
 	unsigned int hash(std::string key);
 	void rehashing(void);
 	static void clear_table(List **table, unsigned int size);
 public:
+	List **table;
 	unsigned int size;
 	Hash_table(unsigned int size);
 	~Hash_table(void);
+	static unsigned int str_hash(std::string key, unsigned int size);
+	static unsigned int str_hash(unsigned int old_hash, char old_c, char new_c, unsigned int size, int len);
 	void insert(Substr *data);
 	void remove(std::string key);
 	Substr *find(std::string key);
