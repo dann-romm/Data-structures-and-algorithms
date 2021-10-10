@@ -112,6 +112,15 @@ int	task02(void)
 		node = node->next;
 	}
 
+	for (int i = 0; i < table->size; i++)
+	{
+		node = table->table[i];
+		while (node != 0)
+		{
+			std::cout << "образец (" << node->data->get_key() << ") встретился " << node->data->count << " раз\n";
+			node = node->next;
+		}
+	}
 	
 	return (0);
 }
