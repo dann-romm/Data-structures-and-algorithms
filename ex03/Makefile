@@ -16,7 +16,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
 
-%.o : %.c $(HEADER)
+%.o : %.cpp $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $(addsuffix .o, $(basename $<)) -I $(HEADER)
 
 clean:
