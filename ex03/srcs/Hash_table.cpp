@@ -9,7 +9,7 @@ List::List(void)
 	this->data = nullptr;
 }
 
-void List::push_front(List **head, Substr *data)
+void List::push_front(List **head, Pattern *data)
 {
 	List *node = new List();
 	node->next = *head;
@@ -111,7 +111,7 @@ unsigned int Hash_table::str_hash(unsigned int old_hash, char old_c, char new_c,
 	return (((old_hash - old_c * (unsigned int) std::pow(b, len - 1)) * b + new_c) % size);
 }
 
-void Hash_table::insert(Substr *data)
+void Hash_table::insert(Pattern *data)
 {
 	unsigned int index = this->hash(data->get_key());
 	if (this->table[index] == nullptr)
@@ -129,7 +129,7 @@ void Hash_table::remove(std::string key)
 		this->load_ratio -= (double)1.0 / this->size;
 }
 
-Substr *Hash_table::find(std::string key)
+Pattern *Hash_table::find(std::string key)
 {
 	unsigned int index = this->hash(key);
 	List *node = ((this->table)[index])->find(key);
@@ -176,7 +176,7 @@ void Hash_table::rehashing(void)
 {
 	List *node;
 	List *prev;
-	Substr *data;
+	Pattern *data;
 	unsigned int new_index;
 	unsigned int old_size = this->size;
 	this->size *= 2;

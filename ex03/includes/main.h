@@ -7,7 +7,7 @@
 #include <ctime>
 #include <vector>
 
-#include "../includes/Substr.h"
+#include "../includes/Pattern.h"
 #include "../includes/Hash_table.h"
 
 #endif //MAIN_H

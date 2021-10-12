@@ -9,7 +9,7 @@ int	task01(void)
 	unsigned int	j;
 
 	set = ".,!?;:\"'";
-	std::cout << "Ввод строки:\n";
+	std::cout << "Ввод строки: ";
 	getline(std::cin, text);
 	len = text.length();
 	i = 0;
@@ -24,7 +24,7 @@ int	task01(void)
 	while (j >= 0 && set.find(text[j]) == std::string::npos)
 		j--;
 	text = text.substr(j + 1, len - j - 1) + text.substr(i, j - i + 1) + text.substr(0, i);
-	std::cout << text << "\n";
+	std::cout << "Итоговая строка: " << text << "\n";
 	return (0);
 }
 
@@ -48,7 +48,7 @@ int	substr_hashtable_init(Hash_table *table, unsigned int *substr_len)
 			delete table;
 			return (1);
 		}
-		table->insert(new Substr(tmp));
+		table->insert(new Pattern(tmp));
 	}
 	return (0);
 }

@@ -2,7 +2,7 @@ NAME		= ex03
 
 CC			= g++
 CFLAGS		= -std=c++17
-CFILES		= main Hash_table Substr
+CFILES		= main Hash_table Pattern
 SRC			= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(CFILES)))
 SRC_DIR		= ./srcs/
 OBJ			= $(SRC:.cpp=.o)
