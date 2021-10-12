@@ -2,6 +2,9 @@
 
 int	task01(void)
 {
+	std::chrono::system_clock::time_point	start_t;
+	std::chrono::system_clock::time_point	end_t;
+	double									duration_t;
 	std::string		text;
 	std::string		set;
 	unsigned int	len;
@@ -9,29 +12,34 @@ int	task01(void)
 	unsigned int	j;
 
 	set = ".,!?;:\"'";
-	std::cout << "Ввод строки: ";
+	std::cout << "Ввод строки:      ";
 	getline(std::cin, text);
+
+	start_t = std::chrono::system_clock::now();
+
 	len = text.length();
 	i = 0;
 	while (i < len && set.find(text[i]) == std::string::npos)
 		i++;
-	if (i == len)
+	if (i != len)
 	{
-		std::cout << text << "\n";
-		return (0);
+		j = len - 1;
+		while (j >= 0 && set.find(text[j]) == std::string::npos)
+			j--;
+		text = text.substr(j + 1, len - j - 1) + text.substr(i, j - i + 1) + text.substr(0, i);
 	}
-	j = len - 1;
-	while (j >= 0 && set.find(text[j]) == std::string::npos)
-		j--;
-	text = text.substr(j + 1, len - j - 1) + text.substr(i, j - i + 1) + text.substr(0, i);
-	std::cout << "Итоговая строка: " << text << "\n";
+	std::cout << "Итоговая строка:  " << text << "\n";
+
+	end_t = std::chrono::system_clock::now();
+	duration_t = std::chrono::duration<double>(end_t - start_t).count();
+	std::cout << "Время выполнения: " << duration_t << "s\n";
 	return (0);
 }
 
 int	substr_hashtable_init(Hash_table *table, unsigned int *substr_len)
 {
-	int				n;
-	std::string		tmp;
+	int			n;
+	std::string	tmp;
 
 	std::cout << "Ввод кол-во образцов: ";
 	std::cin >> n;
@@ -53,30 +61,20 @@ int	substr_hashtable_init(Hash_table *table, unsigned int *substr_len)
 	return (0);
 }
 
-int	task02(void)
+int	rabin_karp(Hash_table *table, std::string text, unsigned int substr_len, unsigned long long *comparison)
 {
-	std::string		text;
 	unsigned int	hash;
 	unsigned int	text_len;
-	unsigned int	substr_len;
-	Hash_table		*table;
 	List			*node;
-	
-	table = new Hash_table(32);
 
-	std::cout << "Ввод текста:\n";
-	getline(std::cin, text);
-	text_len = text.length(); // считывание текста
-
-	if (substr_hashtable_init(table, &substr_len)) // инициализация и считывание хеш-таблицы образцов
-		return (1);
-
+	text_len = text.length();
 	hash = Hash_table::str_hash(text.substr(0, substr_len), table->size);
 	for (int i = 0; (i + substr_len) < (text_len); i++)
 	{
 		node = table->table[hash];
 		while (node != 0)
 		{
+			*comparison += substr_len;
 			if (!text.compare(i, substr_len, node->data->get_key()))
 				node->data->count += 1; // при совпадении хеша и совпадении образца, увеличиваем счётчик совпадений
 			node = node->next;
@@ -90,6 +88,32 @@ int	task02(void)
 			node->data->count += 1;
 		node = node->next;
 	}
+	return (0);
+}
+
+int	task02(void)
+{
+	std::chrono::system_clock::time_point	start_t;
+	std::chrono::system_clock::time_point	end_t;
+	double									duration_t;
+	unsigned long long						comparison;
+	std::string		text;
+	unsigned int	substr_len;
+	Hash_table		*table;
+	List			*node;
+	
+	table = new Hash_table(32);
+
+	std::cout << "Ввод текста:\n";
+	getline(std::cin, text);
+
+	if (substr_hashtable_init(table, &substr_len))
+		return (1);
+
+	start_t = std::chrono::system_clock::now();
+
+	comparison = 0;
+	rabin_karp(table, text, substr_len, &comparison);
 
 	for (int i = 0; i < table->size; i++)
 	{
@@ -101,12 +125,17 @@ int	task02(void)
 		}
 	}
 	delete table;
+
+	end_t = std::chrono::system_clock::now();
+	duration_t = std::chrono::duration<double>(end_t - start_t).count();
+	std::cout << "Время выполнения: " << duration_t << "s\n";
+	std::cout << "Количество сравнений: " << comparison << "\n";
 	return (0);
 }
 
 int main(void)
 {
-	task01();
-	// task02();
+	// task01();
+	task02();
 	return (0);
 }
