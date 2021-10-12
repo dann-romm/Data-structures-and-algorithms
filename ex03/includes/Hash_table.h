@@ -19,7 +19,7 @@ public:
 class Hash_table
 {
 private:
-	static const double load_ratio_limit = 0.75;
+	const double load_ratio_limit = 0.75;
 	double load_ratio;
 	unsigned int hash(std::string key);
 	void rehashing(void);

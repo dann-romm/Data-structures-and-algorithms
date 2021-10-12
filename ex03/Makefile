@@ -1,10 +1,9 @@
 NAME		= ex03
 
 CC			= g++
-CFLAGS		=
-CFILES		= main.cpp Hash_table.cpp Substr.cpp
-# CFILES	= main.cpp
-SRC			= $(addprefix $(SRC_DIR), $(CFILES))
+CFLAGS		= -std=c++17
+CFILES		= main Hash_table Substr
+SRC			= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(CFILES)))
 SRC_DIR		= ./srcs/
 OBJ			= $(SRC:.cpp=.o)
 HEADER		= ./includes/

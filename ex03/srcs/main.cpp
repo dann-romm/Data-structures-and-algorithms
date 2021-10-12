@@ -1,51 +1,30 @@
 #include "../includes/main.h"
 
-std::vector<std::string>	split(std::string str)
-{
-	std::vector<std::string>	arr;
-	std::stringstream			strstream;
-	std::string					tmp;
-
-	strstream << str;
-	while (!strstream.eof())
-	{
-		strstream >> tmp;
-		arr.push_back(tmp);
-	}
-	strstream.str("");
-	return (arr);
-}
-
-std::string	strjoin(std::vector<std::string> strs, std::string sep)
-{
-	std::string	str;
-	int 		len;
-
-	if (strs.empty())
-		return (std::string());
-	str = strs[0];
-	len = strs.size();
-	for (int i = 1; i < len; i++)
-		str += sep + strs[i];
-	return (str);
-}
-
 int	task01(void)
 {
-	std::vector<std::string>	arr;
-	std::string					str;
-	std::string					tmp;
-	int 						len;
+	std::string		text;
+	std::string		set;
+	unsigned int	len;
+	unsigned int	i;
+	unsigned int	j;
 
+	set = ".,!?;:\"'";
 	std::cout << "Ввод строки:\n";
-	getline(std::cin, str);
-	arr = split(str); // разбиение строки на слова
-	len = arr.size();
-	tmp = arr[0]; // замена местами первое и послднее слова
-	arr[0] = arr[len - 1];
-	arr[len - 1] = tmp;
-	str = strjoin(arr, " "); // содинение слов в одну строку
-	std::cout << str << "\n";
+	getline(std::cin, text);
+	len = text.length();
+	i = 0;
+	while (i < len && set.find(text[i]) == std::string::npos)
+		i++;
+	if (i == len)
+	{
+		std::cout << text << "\n";
+		return (0);
+	}
+	j = len - 1;
+	while (j >= 0 && set.find(text[j]) == std::string::npos)
+		j--;
+	text = text.substr(j + 1, len - j - 1) + text.substr(i, j - i + 1) + text.substr(0, i);
+	std::cout << text << "\n";
 	return (0);
 }
 
@@ -87,9 +66,9 @@ int	task02(void)
 
 	std::cout << "Ввод текста:\n";
 	getline(std::cin, text);
-	text_len = text.length();
+	text_len = text.length(); // считывание текста
 
-	if (substr_hashtable_init(table, &substr_len))
+	if (substr_hashtable_init(table, &substr_len)) // инициализация и считывание хеш-таблицы образцов
 		return (1);
 
 	hash = Hash_table::str_hash(text.substr(0, substr_len), table->size);
@@ -99,10 +78,10 @@ int	task02(void)
 		while (node != 0)
 		{
 			if (!text.compare(i, substr_len, node->data->get_key()))
-				node->data->count += 1;
+				node->data->count += 1; // при совпадении хеша и совпадении образца, увеличиваем счётчик совпадений
 			node = node->next;
 		}
-		hash = Hash_table::str_hash(hash, text[i], text[i + substr_len], table->size, substr_len);
+		hash = Hash_table::str_hash(hash, text[i], text[i + substr_len], table->size, substr_len); // расчёт нового значения скользящей хеш-функции
 	}
 	node = table->table[hash];
 	while (node != 0)
@@ -121,13 +100,13 @@ int	task02(void)
 			node = node->next;
 		}
 	}
-	
+	delete table;
 	return (0);
 }
 
 int main(void)
 {
-	// task01();
-	task02();
+	task01();
+	// task02();
 	return (0);
 }
