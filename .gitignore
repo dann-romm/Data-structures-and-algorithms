@@ -1,0 +1,9 @@
+lectures
+tasks
+
+*/*.docx
+*/*.pdf
+*/*.pttx
+*.docx
+*.pdf
+*.pttx
