@@ -8,25 +8,43 @@ int	task01(void)
 	std::string		text;
 	std::string		set;
 	unsigned int	len;
-	unsigned int	i;
-	unsigned int	j;
+	unsigned int	f_start;
+	unsigned int	f_end;
+	unsigned int	l_start;
+	unsigned int	l_end;
 
 	set = ".,!?;:\"'";
-	std::cout << "Ввод строки:      ";
-	getline(std::cin, text);
+	// std::cout << "Ввод строки:      ";
+	// getline(std::cin, text);
+	std::fstream	file;
+	file.open("test.txt");
+	file >> text;
+	file.close();
 
 	start_t = std::chrono::system_clock::now();
 
 	len = text.length();
-	i = 0;
-	while (i < len && set.find(text[i]) == std::string::npos)
-		i++;
-	if (i != len)
+	f_end = 0;
+	while (f_end < len && set.find(text[f_end]) != std::string::npos)
+		f_end++;
+	f_start = f_end;
+	while (f_end < len && set.find(text[f_end]) == std::string::npos)
+		f_end++;
+
+	if (f_end != len)
 	{
-		j = len - 1;
-		while (j >= 0 && set.find(text[j]) == std::string::npos)
-			j--;
-		text = text.substr(j + 1, len - j - 1) + text.substr(i, j - i + 1) + text.substr(0, i);
+		l_start = len - 1;
+		while (l_start >= 0 && set.find(text[l_start]) != std::string::npos)
+			l_start--;
+		l_end = l_start;
+		while (l_start >= 0 && set.find(text[l_start]) == std::string::npos)
+			l_start--;
+	}
+	if (f_end != len && f_start != (l_start + 1) && (f_end + 1) != l_end)
+	{
+		text = text.substr(0, f_start) + text.substr(l_start + 1, l_end - l_start) +
+			text.substr(f_end, l_start - f_end + 1) +
+			text.substr(f_start, f_end - f_start) + text.substr(l_end + 1, len - l_end);
 	}
 	std::cout << "Итоговая строка:  " << text << "\n";
 
@@ -104,8 +122,12 @@ int	task02(void)
 	
 	table = new Hash_table(32);
 
-	std::cout << "Ввод текста:\n";
-	getline(std::cin, text);
+	// std::cout << "Ввод текста:\n";
+	// getline(std::cin, text);
+	std::fstream	file;
+	file.open("test.txt");
+	file >> text;
+	file.close();
 
 	if (substr_hashtable_init(table, &substr_len))
 		return (1);
