@@ -2,7 +2,7 @@ NAME		= ex04
 
 CCP			= g++
 CFLAGS		= -std=c++17
-CFILES		= main b_tree
+CFILES		= main b_tree queue
 SRC			= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(CFILES)))
 SRC_DIR		= ./srcs/
 OBJ			= $(SRC:.cpp=.o)

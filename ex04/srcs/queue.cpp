@@ -28,7 +28,7 @@ void	Queue::push(Queue **head, void *data)
 void	*Queue::pop(Queue **head)
 {
 	Queue	*node;
-	Queue	*node2;
+	void	*data;
 	
 	if (!head || !(*head))
 		return (nullptr);
@@ -36,13 +36,13 @@ void	*Queue::pop(Queue **head)
 	if (!((*head)->next))
 	{
 		*head = nullptr;
-		return (node);
+		return (node->data);
 	}
 	while (node->next->next)
 		node = node->next;
-	node2 = node->next;
+	data = node->next->data;
 	node->next = nullptr;
-	return (node2);
+	return (data);
 }
 
 void	Queue::right_traversar(void (*f)(void *))
