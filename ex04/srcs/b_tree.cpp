@@ -45,8 +45,8 @@ void	RBTree::prefix_traversar(RBTree *root, void (*f)(void *))
 	if (!root || root == leaf)
 		return ;
 	(*f)(root->data);
-	RBTree::infix_traversar(root->left, f);
-	RBTree::infix_traversar(root->right, f);
+	RBTree::prefix_traversar(root->left, f);
+	RBTree::prefix_traversar(root->right, f);
 }
 
 void	RBTree::infix_traversar(RBTree *root, void (*f)(void *))
@@ -62,8 +62,8 @@ void	RBTree::suffix_traversar(RBTree *root, void (*f)(void *))
 {
 	if (!root || root == leaf)
 		return ;
-	RBTree::infix_traversar(root->left, f);
-	RBTree::infix_traversar(root->right, f);
+	RBTree::suffix_traversar(root->left, f);
+	RBTree::suffix_traversar(root->right, f);
 	(*f)(root->data);
 }
 
@@ -92,13 +92,23 @@ void	RBTree::print(RBTree *root, size_t indent)
 	if (!root || root == leaf)
 		return ;
 	RBTree::print(root->right, indent + 1);
-	for (int i = 0; i < indent; i++)
+	for (int i = 0; i < indent * 2; i++)
 		std::cout << "\t";
-	// std::cout << *(double *)(root->data) << "\n";
 	if (root->color == BLACK)
-		std::cout << *(double *)(root->data) << "(B)\n";
+		std::cout << *(double *)(root->data) << "(B)";
 	else
-		std::cout << *(double *)(root->data) << "(R)\n";
+		std::cout << *(double *)(root->data) << "(R)";
+
+
+
+	if (root->parent)
+		std::cout << "(" << *(double *)(root->parent->data) << ")";
+	else
+		std::cout << "(null)";
+
+
+
+	std::cout << "\n";
 	RBTree::print(root->left, indent + 1);
 }
 
@@ -109,10 +119,62 @@ size_t	RBTree::height(RBTree *root)
 	return (std::max(RBTree::height(root->left), RBTree::height(root->right)) + 1);
 }
 
+void	RBTree::swap_color(RBTree *node1, RBTree *node2)
+{
+	t_color color;
+
+	if (!node1 || !node2 || node1 == leaf || node2 == leaf)
+		return ;
+	color = node1->color;
+	node1->color = node2->color;
+	node2->color = color;
+}
+
+void	RBTree::rotation_left(RBTree **root)
+{
+	RBTree	*node;
+
+	if (!root || !(*root) || (*root)->left == leaf || (*root)->right == leaf)
+		return ;
+	RBTree::swap_color((*root), (*root)->right);
+	node = (*root)->right;
+	(*root)->right = node->left;
+	(*root)->right->parent = (*root);
+	node->left = (*root);
+	if ((*root)->parent && (*root)->parent->left == (*root))
+		(*root)->parent->left = node;
+	else if ((*root)->parent)
+		(*root)->parent->right = node;
+	node->parent = (*root)->parent;
+	(*root)->parent = node;
+	(*root) = node;
+}
+
+void	RBTree::rotation_right(RBTree **root)
+{
+	RBTree	*node;
+
+	if (!root || !(*root) || (*root)->left == leaf || (*root)->right == leaf)
+		return ;
+	RBTree::swap_color((*root), (*root)->left);
+	node = (*root)->left;
+	(*root)->left = node->right;
+	(*root)->left->parent = (*root);
+	node->right = (*root);
+	if ((*root)->parent && (*root)->parent->left == (*root))
+		(*root)->parent->left = node;
+	else if ((*root)->parent)
+		(*root)->parent->right = node;
+	node->parent = (*root)->parent;
+	(*root)->parent = node;
+	(*root) = node;
+}
+
 void	RBTree::insert(RBTree **root, void *data, int (*cmp)(void *, void *))
 {
 	RBTree	*new_node;
-	RBTree	*node;
+	RBTree	*node1;
+	RBTree	*node2;
 
 	if (!root)
 		return ;
@@ -122,28 +184,21 @@ void	RBTree::insert(RBTree **root, void *data, int (*cmp)(void *, void *))
 		*root = new_node;
 		return ;
 	}
-
-	node = *root;
-	while (node != leaf && (node->left != leaf || node->right != leaf))
+	new_node->color = RED;
+	node1 = *root;
+	while (node1 != leaf)
 	{
-		if ((*cmp)(node->data, data) > 0)
-		{
-			if (node->left == leaf)
-				break ;
-			node = node->left;
-		}
+		node2 = node1;
+		if ((*cmp)(node1->data, data) > 0)
+			node1 = node1->left;
 		else
-		{
-			if (node->right == leaf)
-				break ;
-			node = node->right;
-		}
+			node1 = node1->right;
 	}
-	if ((*cmp)(node->data, data) > 0)
-		node->left = new_node;
+	new_node->parent = node2;
+	if ((*cmp)(node2->data, data) > 0)
+		node2->left = new_node;
 	else
-		node->right = new_node;
-	new_node->parent = node;
+		node2->right = new_node;
 
 	// TODO: rebalancing
 }

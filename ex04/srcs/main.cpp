@@ -17,15 +17,22 @@ int		doublecmp(void *a, void *b)
 
 int	main(void)
 {
-	double	nbr1 = 11.5;
-	double	nbr2 = 22.5;
-	double	nbr3 = 33.5;
-	double	nbr4 = 44.5;
-	double	nbr5 = 55.5;
-	double	nbr6 = 66.5;
-	double	nbr7 = 77.5;
-	double	nbr8 = 88.5;
-	double	nbr9 = 99.5;
+	double	nbr01 = 11.5;
+	double	nbr02 = 22.5;
+	double	nbr03 = 33.5;
+	double	nbr04 = 44.5;
+	double	nbr05 = 55.5;
+	double	nbr06 = 66.5;
+	double	nbr07 = 77.5;
+	double	nbr08 = 88.5;
+	double	nbr09 = 99.5;
+	double	nbr10 = 100.5;
+	double	nbr11 = 110.5;
+	double	nbr12 = 120.5;
+	double	nbr13 = 130.5;
+	double	nbr14 = 140.5;
+	double	nbr15 = 150.5;
+	double	nbr16 = 160.5;
 
 	RBTree	*tree;
 	tree = nullptr;
@@ -40,15 +47,25 @@ int	main(void)
 	// tree->left->left->left = new RBTree((void *) &nbr8);
 	// tree->left->left->right = new RBTree((void *) &nbr9);
 
-	RBTree::insert(&tree, (void *) &nbr6, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr4, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr2, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr5, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr1, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr3, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr8, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr7, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr9, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr08, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr04, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr02, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr01, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr03, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr06, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr05, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr07, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr12, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr10, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr09, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr11, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr14, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr13, doublecmp);
+	RBTree::insert(&tree, (void *) &nbr15, doublecmp);
 	// std::cout << RBTree::height(tree);
+	RBTree::print(tree, 0);
+	std::cout << "<==========================>\n";
+	RBTree::rotation_left(&(tree->right));
+	// RBTree::rotation_right(&(tree->right));
 	RBTree::print(tree, 0);
 }
