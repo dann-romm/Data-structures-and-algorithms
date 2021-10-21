@@ -22,6 +22,13 @@ clean:
 	@rm -rf */*.o
 	@rm -rf *.o
 
+ds_store:
+	@rm -rf ../.DS_Store
+	@rm -rf ../ex01/.DS_Store
+	@rm -rf ../ex02/.DS_Store
+	@rm -rf ../ex03/.DS_Store
+	@rm -rf ../ex04/.DS_Store
+
 fclean: clean
 	@rm -rf $(NAME)
 
