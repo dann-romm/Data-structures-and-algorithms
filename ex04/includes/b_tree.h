@@ -27,6 +27,7 @@ public:
 	static size_t	height(RBTree *root);
 
 	static void		swap_color(RBTree *node1, RBTree *node2);
+	static void		swap_color(RBTree *root);
 	static void		insert(RBTree **root, void *data, int (*cmp)(void *, void *));
 	static void		rotation_left(RBTree **root);
 	static void		rotation_right(RBTree **root);

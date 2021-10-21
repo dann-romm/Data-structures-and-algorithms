@@ -47,25 +47,30 @@ int	main(void)
 	// tree->left->left->left = new RBTree((void *) &nbr8);
 	// tree->left->left->right = new RBTree((void *) &nbr9);
 
-	RBTree::insert(&tree, (void *) &nbr08, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr04, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr02, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr01, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr03, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr08, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr04, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr02, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr01, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr03, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr06, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr05, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr07, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr12, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr10, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr09, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr11, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr14, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr13, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr15, doublecmp);
+
 	RBTree::insert(&tree, (void *) &nbr06, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr05, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr07, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr12, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr10, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr09, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr11, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr14, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr13, doublecmp);
-	RBTree::insert(&tree, (void *) &nbr15, doublecmp);
+	RBTree::insert(&(tree->left), (void *) &nbr03, doublecmp);
+	// RBTree::insert(&tree, (void *) &nbr01, doublecmp);
+
 	// std::cout << RBTree::height(tree);
 	RBTree::print(tree, 0);
-	std::cout << "<==========================>\n";
-	RBTree::rotation_left(&(tree->right));
+	std::cout << "<===========================================>\n";
+	// RBTree::rotation_left(&(tree));
 	// RBTree::rotation_right(&(tree->right));
-	RBTree::print(tree, 0);
+	// RBTree::print(tree, 0);
 }
