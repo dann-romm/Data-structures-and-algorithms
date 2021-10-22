@@ -3,6 +3,6 @@
 
 # include <iostream>
 
-# include "../includes/node.h"
+# include "../includes/graph.h"
 
 #endif // MAIN_H

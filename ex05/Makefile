@@ -1,8 +1,8 @@
 NAME		= ex05
 
 CCP			= g++
-CFLAGS		= -std=c++17
-CFILES		= main node graph
+CFLAGS		= -std=c++20
+CFILES		= main graph
 SRC			= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(CFILES)))
 SRC_DIR		= ./srcs/
 OBJ			= $(SRC:.cpp=.o)
