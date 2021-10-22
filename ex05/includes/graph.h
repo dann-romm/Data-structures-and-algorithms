@@ -8,7 +8,13 @@
 class Graph
 {
 public:
-	std::vector<Node> e;
+	vector<vector<int>>	*e;
+	size_t				vertex;
+	size_t				edges;
+
+	Graph(void);
+	void		add(size_t src, size_t dst, int weight);
+	vector<int>	*Bellman_Ford();
 };
 
 #endif // GRAPH_H
