@@ -28,8 +28,8 @@ public:
 	RBTree(void *data);
 
 	void			print(size_t indent = 0); // вывод дерева
-	size_t			height(void); // высота дерева
-	size_t			height_black(void); // чёрная высота дерева
+	unsigned char	height(void); // высота дерева
+	unsigned char	height_black(void); // чёрная высота дерева
 	double			sum_data(void); // сумма значений всех листьев
 	double			avg_data(void); // среднее арифметическое значений всех листьев
 

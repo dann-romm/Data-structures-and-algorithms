@@ -12,7 +12,7 @@ HEADER		= ./includes/
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	$(CCP) $(CFLAGS) $(OBJ) -o $@
 
 %.o : %.cpp $(HEADER)
@@ -22,6 +22,9 @@ clean:
 	@rm -rf */*.o
 	@rm -rf *.o
 
+fclean: clean
+	@rm -rf $(NAME)
+
 ds_store:
 	@rm -rf ../.DS_Store
 	@rm -rf ../ex01/.DS_Store
@@ -29,8 +32,5 @@ ds_store:
 	@rm -rf ../ex03/.DS_Store
 	@rm -rf ../ex04/.DS_Store
 	@rm -rf ../ex05/.DS_Store
-
-fclean: clean
-	@rm -rf $(NAME)
 
 re: fclean all

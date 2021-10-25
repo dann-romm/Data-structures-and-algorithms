@@ -30,14 +30,13 @@ void	fill_rand(RBTree **root, double arr[], size_t len)
 
 int		main(void)
 {
-	double	arr[1000000];
-	int		choice;
-	size_t	count;
-	size_t	index;
-	RBTree	*tree;
+	double			*arr;
+	short int		choice;
+	short int		count;
+	RBTree			*tree;
 
 	tree = nullptr;
-	index = 0;
+	arr = nullptr;
 
 	std::cout << "меню:\n";
 	std::cout << "0 - звершение программы\n";
@@ -59,6 +58,11 @@ int		main(void)
 		switch (choice)
 		{
 			case (0):
+				if (arr)
+				{
+					delete arr;
+					arr = nullptr;
+				}
 				return (0);
 			case (1):
 				if (!tree)
@@ -67,23 +71,47 @@ int		main(void)
 					tree->print();
 				break;
 			case (2):
+				if (arr)
+				{
+					delete arr;
+					arr = nullptr;
+				}
 				RBTree::clear(&tree);
 				break;
 			case (3):
-				std::cout << "введите кол-во элементов: ";
-				std::cin >> count;
-				for (size_t i = 0; i < count; i++)
+				count = 0;
+				while (count < 1)
 				{
-					std::cin >> arr[i + index];
-					RBTree::insert(&tree, (void *) &arr[i + index], cmp_double);
+					std::cout << "введите кол-во элементов: ";
+					std::cin >> count;
 				}
-				index += count;
+				if (arr)
+				{
+					delete arr;
+					arr = nullptr;
+				}
+				RBTree::clear(&tree);
+				arr = new double[count];
+				for (short int i = 0; i < count; i++)
+				{
+					std::cin >> arr[i];
+					RBTree::insert(&tree, (void *) &arr[i], cmp_double);
+				}
 				break;
 			case (4):
-				std::cout << "введите кол-во элементов: ";
-				std::cin >> count;
-				index = 0;
+				count = 0;
+				while (count < 1)
+				{
+					std::cout << "введите кол-во элементов: ";
+					std::cin >> count;
+				}
+				if (arr)
+				{
+					delete arr;
+					arr = nullptr;
+				}
 				RBTree::clear(&tree);
+				arr = new double[count];
 				fill_rand(&tree, arr, count);
 				break;
 			case (5):
