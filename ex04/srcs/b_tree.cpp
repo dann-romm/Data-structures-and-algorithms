@@ -75,24 +75,36 @@ double	RBTree::sum_data(void)
 		this->left->sum_data() + this->right->sum_data());
 }
 
-double	RBTree::avg_data(void)
+unsigned int	RBTree::count(void)
 {
-	static size_t	count = 0;
-	static double	sum = 0;
-
 	if (this == leaf)
 		return (0);
-	if (!(this->parent))
-	{
-		count = 0;
-		sum = 0;
-	}
-	sum += this->left->avg_data();
-	sum += this->right->avg_data();
-	count++;
-	if (!(this->parent))
-		return (round( ((*(double *)(this->data) + sum) / count) * 100.0 ) / 100.0);
-	return (*(double *)(this->data));
+	return (this->left->count() + this->right->count() + 1);
+}
+
+// double	RBTree::avg_data(void)
+// {
+// 	static unsigned int	count = 0;
+// 	static double		sum = 0;
+
+// 	if (this == leaf)
+// 		return (0);
+// 	if (!(this->parent))
+// 	{
+// 		count = 0;
+// 		sum = 0;
+// 	}
+// 	sum += this->left->avg_data();
+// 	sum += this->right->avg_data();
+// 	count++;
+// 	if (!(this->parent))
+// 		return ((*(double *)(this->data) + sum) / count);
+// 	return (*(double *)(this->data));
+// }
+
+double	RBTree::avg_data(void)
+{
+	return (this->sum_data() / this->count());
 }
 
 void	RBTree::print(size_t indent)
@@ -114,7 +126,7 @@ void	RBTree::print(size_t indent)
 	this->left->print(indent + 1);
 }
 
-size_t	RBTree::height(void)
+unsigned short int	RBTree::height(void)
 {
 	if (this == leaf)
 		return (0);
@@ -122,7 +134,7 @@ size_t	RBTree::height(void)
 		std::max( this->left->height(), this->right->height() ));
 }
 
-size_t	RBTree::height_black(void)
+unsigned short int	RBTree::height_black(void)
 {
 	if (this == leaf)
 		return (0);

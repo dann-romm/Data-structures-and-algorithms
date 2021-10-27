@@ -3,7 +3,6 @@
 
 # include <cstdlib>
 # include <iostream>
-# include <math.h>
 
 typedef enum {
 	RED,
@@ -27,19 +26,20 @@ public:
 	RBTree(void);
 	RBTree(void *data);
 
-	void			print(size_t indent = 0); // вывод дерева
-	size_t			height(void); // высота дерева
-	size_t			height_black(void); // чёрная высота дерева
-	double			sum_data(void); // сумма значений всех листьев
-	double			avg_data(void); // среднее арифметическое значений всех листьев
+	void				print(size_t indent = 0); // вывод дерева
+	unsigned short int	height(void); // высота дерева
+	unsigned short int	height_black(void); // чёрная высота дерева
+	unsigned int		count(void); // подсчёт количества узлов дерева
+	double				sum_data(void); // сумма значений всех листьев
+	double				avg_data(void); // среднее арифметическое значений всех листьев
 
-	static void		insert(RBTree **root, void *data, int (*cmp)(void *, void *)); // вставка элемента
-	static void		clear(RBTree **root); // очистка дерева и удаление всех элементов
+	static void			insert(RBTree **root, void *data, int (*cmp)(void *, void *)); // вставка элемента
+	static void			clear(RBTree **root); // очистка дерева и удаление всех элементов
 
-	void			prefix_traversar(void (*f)(void *)); // прямой обход дерева
-	void			infix_traversar(void (*f)(void *)); // симметричный обход дерева
-	void			suffix_traversar(void (*f)(void *)); // обратный обход дерева
-	void			BFS_traversar(void (*f)(void *)); // обход дерева в ширину
+	void				prefix_traversar(void (*f)(void *)); // прямой обход дерева
+	void				infix_traversar(void (*f)(void *)); // симметричный обход дерева
+	void				suffix_traversar(void (*f)(void *)); // обратный обход дерева
+	void				BFS_traversar(void (*f)(void *)); // обход дерева в ширину
 };
 
 #endif // B_TREE_H
