@@ -39,7 +39,6 @@ void	Graph::Bellman_Ford(int	start)
 	{
 		for (int j = 0; j < this->e[0].size(); j++)
 		{
-			// std::cout << this->e[0][j] << " " << this->e[1][j] << " " << this->e[2][j] << "\n";
 			if (dist[this->e[1][j]] > dist[this->e[0][j]] + this->e[2][j]
 				&& dist[this->e[0][j]] != INT_MAX)
 				dist[this->e[1][j]] = dist[this->e[0][j]] + this->e[2][j];
@@ -102,10 +101,7 @@ void	Graph::print(void)
 
 	auto	print
 	{
-		[](int a)
-		{
-			std::cout << a << "\n";
-		}
+		[](int a) { std::cout << a << "\n"; }
 	};
 	this->BFS_traversar(print);
 }

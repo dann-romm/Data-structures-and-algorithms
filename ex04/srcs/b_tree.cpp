@@ -128,7 +128,7 @@ void	RBTree::print(size_t indent)
 
 unsigned short int	RBTree::height(void)
 {
-	if (this == leaf)
+	if (this->right == leaf)
 		return (0);
 	return (1 +
 		std::max( this->left->height(), this->right->height() ));
@@ -136,7 +136,7 @@ unsigned short int	RBTree::height(void)
 
 unsigned short int	RBTree::height_black(void)
 {
-	if (this == leaf)
+	if (this->right == leaf)
 		return (0);
 	return ((this->color == BLACK) + this->left->height_black());
 }
