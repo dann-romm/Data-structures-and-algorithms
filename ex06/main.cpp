@@ -2,48 +2,19 @@
 
 int main(void)
 {
-	// std::list<char>	buffer;
-	// std::string		str = "abc ab abcdabc";
 
-	// for (int i = 0; i < 16; i++)
-	// 	buffer.push_front(str[i]);
-	
-	// Node	*node = findMatching("abcdefghui", buffer, 0);
-	// std::cout << "<" << node->offset << ", " << node->length << ", " << node->next << ">\n";
+	// std::ifstream		file("lz77.cpp");
+	// std::stringstream	buffer;
+	// buffer << file.rdbuf();
+	// std::string			str = buffer.str();
+	std::string			str = "cabababababm";
 
+	std::vector<Node>	encoded = encodeLZ77(str, 15);
+	std::string			decoded = decodeLZ77(encoded);
 
+	for (std::vector<Node>::iterator it = encoded.begin(); it != encoded.end(); it++)
+		it->print();
 
-
-	std::vector<Node>	ans;
-
-	ans = encodeLZ77("abacabacabadaca");
-
-	for (std::vector<Node>::iterator it = ans.begin(); it != ans.end(); it++)
-	{
-		std::cout << "<" << it->offset << ", " << it->length << ", " << it->next << ">\n";
-	}
-
-
-
-
-	// std::list<char>	buffer;
-	// std::string		str = "abc ab abcdabc ";
-
-	// for (int i = 0; i < BUFFER_SIZE; i++)
-	// 	buffer.push_front(str[i]);
-	
-	// int	shift = 4;
-	// int	pos = 3;
-
-	// std::string s = "123qwerty678";
-
-	// for (std::list<char>::iterator it = buffer.begin(); it != buffer.end(); it++)
-	// 	std::cout << *it;
-	// std::cout << '\n';
-
-	// shiftBuffer(s, &buffer, shift, pos);
-
-	// for (std::list<char>::iterator it = buffer.begin(); it != buffer.end(); it++)
-	// 	std::cout << *it;
-	// std::cout << '\n';
+	// std::cout << encoded.size() * (10 + 10 + 8) << std::endl;
+	// std::cout << str.length() * (8) << std::endl;
 }
