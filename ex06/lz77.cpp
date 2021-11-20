@@ -32,10 +32,10 @@ std::pair<int, int>	findMatching(Buffer *buffer, int pos)
 
 std::vector<Node_LZ77>	encodeLZ77(std::string s, int buffer_size)
 {
-	Buffer				*buffer = new Buffer(s, buffer_size, 0);
-	std::vector<Node>	ans;
-	std::pair<int, int>	pair;
-	unsigned int		pos;
+	Buffer					*buffer = new Buffer(s, buffer_size, 0);
+	std::vector<Node_LZ77>	ans;
+	std::pair<int, int>		pair;
+	unsigned int			pos;
 
 	pos = 0;
 	while (pos < s.length())

@@ -6,7 +6,7 @@ STDFLAG		= -std=c++98
 
 NAME		= ex06
 
-SRC			= main.cpp lz77.cpp
+SRC			= main.cpp lz77.cpp lz78.cpp
 OBJDIR		= ./obj_files/
 OBJ			= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 DFILES		= $(OBJ:.o=.d)
