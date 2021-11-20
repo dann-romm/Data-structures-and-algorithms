@@ -8,6 +8,7 @@
 
 # include "lz77.hpp"
 # include "lz78.hpp"
+# include "huffman.hpp"
 # include "debug.hpp"
 
 #endif // MAIN_HPP

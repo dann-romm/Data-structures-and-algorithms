@@ -2,11 +2,11 @@ CXX			= clang++
 CPPFLAGS	= -Wall -Wextra -Werror #-g #-fsanitize=address
 RM			= rm -rf
 
-STDFLAG		= -std=c++98
+STDFLAG		= -std=c++11
 
 NAME		= ex06
 
-SRC			= main.cpp lz77.cpp lz78.cpp
+SRC			= main.cpp lz77.cpp lz78.cpp huffman.cpp
 OBJDIR		= ./obj_files/
 OBJ			= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 DFILES		= $(OBJ:.o=.d)
