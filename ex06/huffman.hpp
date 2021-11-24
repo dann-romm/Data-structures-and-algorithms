@@ -2,10 +2,13 @@
 # define HUFFMAN_HPP
 
 # include <iostream>
+# include <fstream>
+# include <sstream>
 # include <algorithm>
 # include <vector>
-# include <queue>
 # include <map>
+
+# include "debug.hpp"
 
 class PrefixTREE
 {
@@ -33,7 +36,7 @@ public:
 	bool					operator>(const PrefixTREE& tree) const { return (this->data > tree.data); }
 };
 
-std::string	huffman_encode(std::string str, PrefixTREE *tree);
-std::string	huffman_decode(std::string str, PrefixTREE *tree);
+void	huffman_encode(std::string file_in, std::string file_out, PrefixTREE *tree);
+void	huffman_decode(std::string file_in, std::string file_out, PrefixTREE *tree);
 
 #endif // HUFFMAN_HPP
