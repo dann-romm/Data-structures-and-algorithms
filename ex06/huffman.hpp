@@ -4,29 +4,36 @@
 # include <iostream>
 # include <algorithm>
 # include <vector>
+# include <queue>
 # include <map>
 
-class HuffmanTREE
+class PrefixTREE
 {
 public:
-	HuffmanTREE	*left;
-	HuffmanTREE	*right;
+	PrefixTREE	*left;
+	PrefixTREE	*right;
 	char		data;
 
-	HuffmanTREE(char data) : left(nullptr), right(nullptr), data(data) {};
-	HuffmanTREE(HuffmanTREE *left, HuffmanTREE *right) : left(left), right(right), data(0) {};
-	HuffmanTREE(HuffmanTREE *left, HuffmanTREE *right, char data): left(left), right(right), data(data) {};
+	PrefixTREE() : left(nullptr), right(nullptr), data(0) {};
+	PrefixTREE(char data) : left(nullptr), right(nullptr), data(data) {};
+	PrefixTREE(PrefixTREE *left, PrefixTREE *right) : left(left), right(right), data(0) {};
+	PrefixTREE(PrefixTREE *left, PrefixTREE *right, char data): left(left), right(right), data(data) {};
 
 	void	print(std::ostream &out = std::cout, int indent=0) const;
 
-	static HuffmanTREE			*build_tree(std::map<char, int>	count);
-	std::map<char, std::string>	build_dict();
+	static PrefixTREE			*build_huffman_tree(std::map<char, int>	count);
+	static PrefixTREE			*build_shennonfano_tree(std::map<char, int>	count);
+	void						build_dict(
+		std::map<char, std::string>	*dict,
+		std::string					code=""
+	);
 
-	friend std::ostream&	operator<< (std::ostream &out, const HuffmanTREE &tree) { tree.print(out); return (out); }
-	bool					operator<(const HuffmanTREE& tree) const { return (this->data < tree.data); }
-	bool					operator>(const HuffmanTREE& tree) const { return (this->data > tree.data); }
+	friend std::ostream&	operator<< (std::ostream &out, const PrefixTREE &tree) { tree.print(out); return (out); }
+	bool					operator<(const PrefixTREE& tree) const { return (this->data < tree.data); }
+	bool					operator>(const PrefixTREE& tree) const { return (this->data > tree.data); }
 };
 
-void	huffman(std::string s);
+std::string	huffman_encode(std::string str, PrefixTREE *tree);
+std::string	huffman_decode(std::string str, PrefixTREE *tree);
 
 #endif // HUFFMAN_HPP

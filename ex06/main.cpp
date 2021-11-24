@@ -1,19 +1,18 @@
 #include "main.hpp"
 
-#include <string>
-
 int main(void)
 {
-	std::string str = "qwfqwfqwfqwfqwfwegsvsalkgfqwngkenafafva";
-	// std::cout << str;
-	huffman(str);
+	std::ifstream input("input.txt");
+	std::ofstream output("output.txt");
+	std::stringstream buffer;
+	PrefixTREE	tree;
 
-	// std::vector<std::pair<HuffmanTREE, int>>	arr1;
-	// arr1.push_back(&HuffmanTREE('g'));
-	// HuffmanTREE l = HuffmanTREE('l');
-	// HuffmanTREE e = HuffmanTREE('e');
+	buffer << input.rdbuf();
+	std::string str = buffer.str();
 
-	// HuffmanTREE le = HuffmanTREE(&l, &e);
-	// HuffmanTREE gle = HuffmanTREE(&g, &le);
-	// std::cout << gle;
+	std::string	encoded = huffman_encode(str, &tree);
+	std::string	decoded = huffman_decode(encoded, &tree);
+
+	output << decoded;
+	// std::cout << str << std::endl << decoded << std::endl;
 }
