@@ -22,7 +22,7 @@ std::pair<PrefixTREE *, int>	build_tree_recursive(
 	std::pair<PrefixTREE *, int> node1;
 	std::pair<PrefixTREE *, int> node2;
 
-	std::cout << "i: " << i << "  _  j: " << j << "\n";
+	// std::cout << "sum=" << sum << "\t|| i: " << i << "  _  j: " << j << "\n";
 
 	if (i == j)
 		return (arr[i]);
@@ -42,12 +42,15 @@ std::pair<PrefixTREE *, int>	build_tree_recursive(
 
 	int curr = 0;
 	int it = i;
-	do {
+	while (sum / 2 - curr > 0)
 		curr += arr[it++].second;
-	} while (sum / 2 - curr > 0);
+	
+	// std::cout << curr * 2 - sum << " _ " << sum - (curr - arr[it - 1].second) * 2 << "\n";
+	if (curr * 2 - sum > sum - (curr - arr[it - 1].second) * 2)
+		curr -= arr[--it - 1].second;
 
-	node1 = build_tree_recursive(arr, i, it, curr);
-	node2 = build_tree_recursive(arr, it + 1, j, sum - curr);
+	node1 = build_tree_recursive(arr, i, it - 1, curr);
+	node2 = build_tree_recursive(arr, it, j, sum - curr);
 	return (std::pair<PrefixTREE *, int>(
 		new PrefixTREE(node1.first, node2.first),
 		node1.second + node2.second

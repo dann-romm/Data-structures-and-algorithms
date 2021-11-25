@@ -12,5 +12,6 @@
 # include "huffman.hpp"
 
 void	shennonfano_encode(std::string file_in, std::string file_out, PrefixTREE *tree);
+void	shennonfano_decode(std::string file_in, std::string file_out, PrefixTREE *tree);
 
 #endif
