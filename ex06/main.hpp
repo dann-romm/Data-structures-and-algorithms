@@ -10,5 +10,6 @@
 # include "lz78.hpp"
 # include "huffman.hpp"
 # include "debug.hpp"
+# include "shennonfano.hpp"
 
 #endif // MAIN_HPP
