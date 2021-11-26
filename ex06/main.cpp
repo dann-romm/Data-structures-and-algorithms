@@ -12,4 +12,9 @@ int main(void)
 	// system("cat decoded.txt");
 
 	shennonfano_encode("input.txt", "encoded.bin", &tree);
+	shennonfano_decode("encoded.bin", "decoded.txt", &tree);
+
+	system("cat input.txt");
+	std::cout << std::endl;
+	system("cat decoded.txt");
 }
