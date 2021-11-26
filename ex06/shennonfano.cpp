@@ -1,5 +1,60 @@
 #include "shennonfano.hpp"
 
+std::pair<PrefixTREE *, int>	build_tree_recursive(
+	std::vector<std::pair<PrefixTREE *, int>> arr,
+	int i, int j, int sum
+)
+{
+	std::pair<PrefixTREE *, int> node1;
+	std::pair<PrefixTREE *, int> node2;
+
+	if (i == j)
+		return (arr[i]);
+	else if (i + 1 == j)
+		return (std::pair<PrefixTREE *, int>(
+			new PrefixTREE(arr[i].first, arr[j].first),
+			arr[i].second + arr[j].second
+		));
+	else if (arr[i].second >= sum / 2)
+	{
+		node2 = build_tree_recursive(arr, i + 1, j, sum - arr[i].second);
+		return (std::pair<PrefixTREE *, int>(
+			new PrefixTREE(arr[i].first, node2.first),
+			arr[i].second + node2.second
+		));
+	}
+
+	int curr = 0;
+	int it = i;
+	do {
+		curr += arr[it++].second;
+	} while (sum / 2 - curr > 0);
+
+	node1 = build_tree_recursive(arr, i, it, curr);
+	node2 = build_tree_recursive(arr, it + 1, j, sum - curr);
+	return (std::pair<PrefixTREE *, int>(
+		new PrefixTREE(node1.first, node2.first),
+		node1.second + node2.second
+	));
+}
+
+PrefixTREE	*PrefixTREE::build_shennonfano_tree(std::map<char, int> count)
+{
+	std::vector<std::pair<PrefixTREE *, int>>	arr;
+	int	sum = 0;
+
+	for (auto it : count)
+	{
+		arr.push_back(std::pair<PrefixTREE *, int>(new PrefixTREE(it.first), it.second));
+		sum += it.second;
+	}
+	std::sort(arr.begin(), arr.end(),
+		[](std::pair<PrefixTREE *, int> a, std::pair<PrefixTREE *, int> b) { return (a.second < b.second); }
+	);
+	PrefixTREE	*tree = build_tree_recursive(arr, 0, arr.size() - 1, sum).first;
+	return (tree);
+}
+
 void	shennonfano_encode(std::string file_in, std::string file_out, PrefixTREE *tree)
 {
 	std::map<char, int>			count;
