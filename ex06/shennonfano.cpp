@@ -26,12 +26,14 @@ std::pair<PrefixTREE *, int>	build_tree_recursive(
 
 	int curr = 0;
 	int it = i;
-	do {
+	while (sum / 2 - curr > 0)
 		curr += arr[it++].second;
-	} while (sum / 2 - curr > 0);
+	
+	if (curr * 2 - sum > sum - (curr - arr[it - 1].second) * 2)
+		curr -= arr[--it - 1].second;
 
-	node1 = build_tree_recursive(arr, i, it, curr);
-	node2 = build_tree_recursive(arr, it + 1, j, sum - curr);
+	node1 = build_tree_recursive(arr, i, it - 1, curr);
+	node2 = build_tree_recursive(arr, it, j, sum - curr);
 	return (std::pair<PrefixTREE *, int>(
 		new PrefixTREE(node1.first, node2.first),
 		node1.second + node2.second
@@ -69,25 +71,18 @@ void	shennonfano_encode(std::string file_in, std::string file_out, PrefixTREE *t
 
 	for (auto c : str)
 		count[c]++;
-
-	// for (auto it : count)
-	// 	std::cout << it.first << ": " << it.second << "\n";
-
 	*tree = *(PrefixTREE::build_shennonfano_tree(count));
-	DEBUG(*tree);
-
 	dict = new std::map<char, std::string>();
 	tree->build_dict(dict);
 
-	// for (auto it : *dict)
-	// 	std::cout << it.first << ": " << it.second << "\n";
+	std::cout << *tree << "\n";
+	for (auto it : *dict)
+		std::cout << it.first << ": " << it.second << "\n";
 
 	for (auto c : str)
 		encoded += (*dict)[c];
 	for (int i = encoded.length(); i % 8 != 0; i++)
 		encoded += '0';
-
-	DEBUG(encoded);
 
 	char c;
 	for (int i = 0; i < (int) encoded.length() / 8; i++)
@@ -117,7 +112,6 @@ void	shennonfano_decode(std::string file_in, std::string file_out, PrefixTREE *t
 		for (int i = 0; i < 8; i++)
 			str += (((c & (1 << (7 - i))) != 0) + '0');
 	}
-	DEBUG(str);
 
 	node = tree;
 	for (auto it : str)

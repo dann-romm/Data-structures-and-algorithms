@@ -1,6 +1,4 @@
 #include "huffman.hpp"
-#include "debug.hpp"
-#include <string>
 
 PrefixTREE	*PrefixTREE::build_huffman_tree(std::map<char, int> count)
 {
@@ -8,14 +6,12 @@ PrefixTREE	*PrefixTREE::build_huffman_tree(std::map<char, int> count)
 	std::vector<std::pair<PrefixTREE *, int>>	arr2;
 	int	i, j;
 
-	// fill and sort array of one-character nodes
 	for (auto it : count)
 		arr1.push_back(std::pair<PrefixTREE *, int>(new PrefixTREE(it.first), it.second));
 	std::sort(arr1.begin(), arr1.end(),
 		[](std::pair<PrefixTREE *, int> a, std::pair<PrefixTREE *, int> b) { return (a.second < b.second); }
 	);
 
-	// the first two inserts should be described separately to avoid segfault
 	arr2.push_back(std::pair<PrefixTREE *, int>(new PrefixTREE(arr1[0].first, arr1[1].first), arr1[0].second + arr1[1].second));
 	i = 2;
 	j = 0;
@@ -62,10 +58,9 @@ PrefixTREE	*PrefixTREE::build_huffman_tree(std::map<char, int> count)
 			j++;
 		}
 	}
+
 	return ((*(arr2.rbegin())).first);
 }
-
-
 
 void	huffman_encode(std::string file_in, std::string file_out, PrefixTREE *tree)
 {
@@ -83,15 +78,18 @@ void	huffman_encode(std::string file_in, std::string file_out, PrefixTREE *tree)
 		count[c]++;
 	*tree = *(PrefixTREE::build_huffman_tree(count));
 
+	std::cout << *tree << "\n";
+
 	dict = new std::map<char, std::string>();
 	tree->build_dict(dict);
+
+	for (auto it: *dict)
+		std::cout << it.first << ": " << it.second << "\n";
 
 	for (auto c : str)
 		encoded += (*dict)[c];
 	for (int i = encoded.length(); i % 8 != 0; i++)
 		encoded += '0';
-
-	DEBUG(encoded);
 
 	char c;
 	for (int i = 0; i < (int) encoded.length() / 8; i++)
@@ -121,7 +119,6 @@ void	huffman_decode(std::string file_in, std::string file_out, PrefixTREE *tree)
 		for (int i = 0; i < 8; i++)
 			str += (((c & (1 << (7 - i))) != 0) + '0');
 	}
-	DEBUG(str);
 
 	node = tree;
 	for (auto it : str)

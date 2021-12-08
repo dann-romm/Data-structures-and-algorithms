@@ -8,8 +8,7 @@
 # include <vector>
 # include <map>
 
-# include "debug.hpp"
-# include "huffman.hpp"
+# include "PrefixTREE.hpp"
 
 std::pair<PrefixTREE *, int>	build_tree_recursive(
 	std::vector<std::pair<PrefixTREE *, int>> arr,
@@ -19,4 +18,4 @@ std::pair<PrefixTREE *, int>	build_tree_recursive(
 void	shennonfano_encode(std::string file_in, std::string file_out, PrefixTREE *tree);
 void	shennonfano_decode(std::string file_in, std::string file_out, PrefixTREE *tree);
 
-#endif
+#endif // SHENNONFANO_HPP

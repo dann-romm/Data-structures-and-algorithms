@@ -6,3 +6,7 @@ lectures
 *.pttx
 *отчёт*
 *Лекция*
+
+test.py
+.vscode
+*DS_Store

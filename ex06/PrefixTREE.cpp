@@ -22,4 +22,3 @@ void	PrefixTREE::build_dict(std::map<char, std::string> *dict, std::string code)
 	if (this->right)
 		this->right->build_dict(dict, code + "1");
 }
-
