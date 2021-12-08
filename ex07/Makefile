@@ -4,9 +4,9 @@ RM			= rm -rf
 
 STDFLAG		= -std=c++11
 
-NAME		= ex06
+NAME		= ex07
 
-SRC			= main.cpp huffman.cpp shennonfano.cpp PrefixTREE.cpp
+SRC			= main.cpp
 OBJDIR		= ./obj_files/
 OBJ			= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 DFILES		= $(OBJ:.o=.d)

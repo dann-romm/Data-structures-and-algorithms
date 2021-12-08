@@ -10,3 +10,8 @@ lectures
 test.py
 .vscode
 *DS_Store
+
+*.o
+*.d
+
+ex??/ex??
