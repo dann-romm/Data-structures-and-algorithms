@@ -11,8 +11,8 @@ int main(void)
 	// std::cout << std::endl;
 	// system("cat decoded.txt");
 
-	shennonfano_encode("input.txt", "encoded.bin", &tree);
-	shennonfano_decode("encoded.bin", "decoded.txt", &tree);
+	shennonfano_encode("input.txt", "encoded", &tree);
+	shennonfano_decode("encoded", "decoded.txt", &tree);
 
 	system("cat input.txt");
 	std::cout << std::endl;

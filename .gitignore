@@ -9,9 +9,7 @@ lectures
 
 test.py
 .vscode
-*DS_Store
+*.DS_Store
 
 *.o
 *.d
-
-ex??/ex??
